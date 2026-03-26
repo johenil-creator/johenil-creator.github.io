@@ -3,22 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LockedIn FIT</title>
+    <title>LockedIn FIT — Train Like a Wolf</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 720px; margin: 0 auto; padding: 48px 24px; color: #333; line-height: 1.6; background: #fafafa; text-align: center; }
-        h1 { font-size: 32px; margin-bottom: 8px; }
-        .tagline { color: #666; font-size: 18px; margin-bottom: 40px; }
-        .links { display: flex; flex-direction: column; gap: 16px; align-items: center; }
-        .links a { color: #2e7d32; font-size: 16px; text-decoration: none; }
-        .links a:hover { text-decoration: underline; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0D1117;
+            color: #E6EDF3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px 48px;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 0 40px rgba(0, 135, 90, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        h1 span {
+            color: #00875A;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #B0B8C1;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 48px;
+        }
+
+        .feature {
+            background: #161B22;
+            border: 1px solid #243D35;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+        }
+
+        .feature-icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #E6EDF3;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            color: #7D8590;
+            margin-top: 2px;
+        }
+
+        .app-store-btn {
+            display: inline-block;
+            margin-bottom: 48px;
+        }
+
+        .app-store-btn img {
+            height: 48px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: #243D35;
+            margin-bottom: 32px;
+        }
+
+        .links {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .links a {
+            color: #B0B8C1;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .links a:hover {
+            color: #00875A;
+        }
+
+        .footer {
+            color: #7D8590;
+            font-size: 12px;
+            padding-bottom: 32px;
+        }
+
+        .footer a {
+            color: #7D8590;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #B0B8C1;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 48px 20px 32px; }
+            h1 { font-size: 32px; }
+            .features { grid-template-columns: 1fr; }
+            .icon { width: 96px; height: 96px; border-radius: 22px; }
+        }
     </style>
 </head>
 <body>
-    <h1>LockedIn FIT</h1>
-    <p class="tagline">Gamified fitness tracking. Train like a wolf.</p>
-    <div class="links">
-        <a href="/privacy-policy.html">Privacy Policy</a>
-        <a href="/terms-of-service.html">Terms of Service</a>
+    <div class="hero">
+        <img src="/icon.png" alt="LockedIn FIT" class="icon">
+        <h1>Locked<span>In</span> FIT</h1>
+        <p class="tagline">Gamified fitness tracking with Locke, your wolf companion. Earn XP, rank up, and stay locked in.</p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">&#x1F3CB;</div>
+                <div class="feature-title">Log Workouts</div>
+                <div class="feature-desc">Import any plan from CSV, Excel, or Google Sheets</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F525;</div>
+                <div class="feature-title">Earn XP &amp; Rank Up</div>
+                <div class="feature-desc">Progress from Runt to Apex across 7 ranks</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F43A;</div>
+                <div class="feature-title">Meet Locke</div>
+                <div class="feature-desc">Your wolf mascot reacts to your training</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F4F1;</div>
+                <div class="feature-title">Offline First</div>
+                <div class="feature-desc">All data on your device. No account needed.</div>
+            </div>
+        </div>
+
+        <a class="app-store-btn" href="https://apps.apple.com/app/lockedin-fit/id6742045498">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+        </a>
+
+        <div class="divider"></div>
+
+        <div class="links">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms-of-service.html">Terms of Service</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 LockedIn FIT &middot; <a href="mailto:fitlockedin@gmail.com">fitlockedin@gmail.com</a>
     </div>
 </body>
 </html>
