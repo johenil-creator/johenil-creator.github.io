@@ -134,6 +134,48 @@
             color: #B0B8C1;
         }
 
+        .contact-card {
+            background: #161B22;
+            border: 1px solid #243D35;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 48px;
+        }
+
+        .contact-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .contact-card p {
+            font-size: 14px;
+            color: #7D8590;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #00875A;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 10px;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .contact-btn:hover {
+            background: #00A36C;
+            transform: scale(1.03);
+        }
+
         @media (max-width: 480px) {
             .hero { padding: 48px 20px 32px; }
             h1 { font-size: 32px; }
@@ -176,6 +218,12 @@
         </a>
 
         <div class="divider"></div>
+
+        <div class="contact-card">
+            <h2>Contact Us</h2>
+            <p>Questions, feedback, or need help? We'd love to hear from you.</p>
+            <a class="contact-btn" href="mailto:fitlockedin@gmail.com">&#x2709;&#xFE0F; Email Us</a>
+        </div>
 
         <div class="links">
             <a href="/privacy-policy.html">Privacy Policy</a>
