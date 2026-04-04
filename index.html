@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LockedIn FIT — Train Like a Wolf</title>
+    <meta name="description" content="Gamified fitness tracking with Locke the wolf. Workouts, meal plans, batch prep, recovery — all offline.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -12,152 +13,265 @@
             background: #0D1117;
             color: #E6EDF3;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Background glow ──────────────────────────── */
+        .bg-glow {
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(0, 135, 90, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        /* ── Hero ─────────────────────────────────────── */
         .hero {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 80px 24px 48px;
+            padding: 80px 24px 0;
             text-align: center;
-            max-width: 640px;
+            max-width: 660px;
         }
 
         .icon {
             width: 120px;
             height: 120px;
             border-radius: 28px;
-            margin-bottom: 24px;
-            box-shadow: 0 0 40px rgba(0, 135, 90, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 28px;
+            box-shadow: 0 0 60px rgba(0, 135, 90, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
         h1 {
-            font-size: 40px;
+            font-size: 44px;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            letter-spacing: -1px;
+            margin-bottom: 6px;
+            line-height: 1.1;
         }
 
         h1 span {
+            background: linear-gradient(135deg, #00875A, #00C97B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 600;
             color: #00875A;
-        }
-
-        .tagline {
-            font-size: 18px;
-            color: #B0B8C1;
-            margin-bottom: 48px;
-            line-height: 1.6;
-        }
-
-        /* Section headers */
-        .section-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: #00875A;
             margin-bottom: 16px;
         }
 
+        .tagline {
+            font-size: 17px;
+            color: #8B949E;
+            margin-bottom: 36px;
+            line-height: 1.7;
+            max-width: 480px;
+        }
+
+        /* ── App Store CTA ────────────────────────────── */
+        .cta-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 64px;
+        }
+
+        .app-store-btn {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .app-store-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .app-store-btn img {
+            height: 52px;
+        }
+
+        .cta-note {
+            font-size: 12px;
+            color: #484F58;
+            margin-top: 10px;
+        }
+
+        /* ── Sections ─────────────────────────────────── */
+        .sections {
+            max-width: 660px;
+            width: 100%;
+            padding: 0 24px;
+        }
+
+        .section {
+            margin-bottom: 56px;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.25s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent, #243D35), transparent);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent, #00875A);
+            white-space: nowrap;
+        }
+
+        .section-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: var(--accent-bg, rgba(0, 135, 90, 0.12));
+            flex-shrink: 0;
+        }
+
+        /* Section accent colors */
+        .section--training { --accent: #F0883E; --accent-bg: rgba(240, 136, 62, 0.12); --border: #3D2E1F; }
+        .section--nutrition { --accent: #3FB950; --accent-bg: rgba(63, 185, 80, 0.10); --border: #1F3D28; }
+        .section--companion { --accent: #58A6FF; --accent-bg: rgba(88, 166, 255, 0.10); --border: #1F2D3D; }
+
+        /* ── Feature cards ────────────────────────────── */
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            margin-bottom: 48px;
         }
 
         .feature {
             background: #161B22;
-            border: 1px solid #243D35;
-            border-radius: 12px;
-            padding: 16px;
+            border: 1px solid var(--border, #243D35);
+            border-radius: 14px;
+            padding: 18px 16px;
             text-align: left;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            cursor: default;
+        }
+
+        .feature:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent, #00875A);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .feature-icon {
-            font-size: 22px;
-            margin-bottom: 6px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--accent-bg, rgba(0, 135, 90, 0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 10px;
         }
 
         .feature-title {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 650;
             color: #E6EDF3;
+            margin-bottom: 4px;
         }
 
         .feature-desc {
             font-size: 12px;
             color: #7D8590;
-            margin-top: 2px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Full-width feature card */
         .feature-wide {
             grid-column: 1 / -1;
         }
 
-        .app-store-btn {
-            display: inline-block;
-            margin-bottom: 48px;
-        }
-
-        .app-store-btn img {
-            height: 48px;
-        }
-
+        /* ── Divider ──────────────────────────────────── */
         .divider {
-            width: 60px;
+            width: 40px;
             height: 2px;
-            background: #243D35;
-            margin-bottom: 32px;
+            background: linear-gradient(90deg, transparent, #243D35, transparent);
+            margin: 0 auto 40px;
         }
 
-        .links {
+        /* ── Contact card ─────────────────────────────── */
+        .bottom-area {
+            max-width: 660px;
+            width: 100%;
+            padding: 0 24px 48px;
             display: flex;
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-
-        .links a {
-            color: #B0B8C1;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .links a:hover {
-            color: #00875A;
-        }
-
-        .footer {
-            color: #7D8590;
-            font-size: 12px;
-            padding-bottom: 32px;
-        }
-
-        .footer a {
-            color: #7D8590;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            color: #B0B8C1;
+            flex-direction: column;
+            align-items: center;
         }
 
         .contact-card {
-            background: #161B22;
+            background: linear-gradient(135deg, #161B22, #1C2430);
             border: 1px solid #243D35;
             border-radius: 16px;
-            padding: 32px 24px;
+            padding: 36px 28px;
             text-align: center;
             width: 100%;
-            margin-bottom: 48px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00875A, transparent);
         }
 
         .contact-card h2 {
@@ -169,7 +283,7 @@
         .contact-card p {
             font-size: 14px;
             color: #7D8590;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             line-height: 1.5;
         }
 
@@ -184,119 +298,202 @@
             font-weight: 600;
             padding: 12px 28px;
             border-radius: 10px;
-            transition: background 0.2s, transform 0.15s;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
         }
 
         .contact-btn:hover {
             background: #00A36C;
             transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(0, 135, 90, 0.3);
+        }
+
+        /* ── Links & Footer ───────────────────────────── */
+        .links {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .links a {
+            color: #484F58;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .links a:hover {
+            color: #00875A;
+        }
+
+        .footer {
+            color: #30363D;
+            font-size: 12px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #30363D;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #7D8590;
+        }
+
+        /* ── Responsive ───────────────────────────────── */
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .tagline { font-size: 16px; }
+            .hero { padding-top: 60px; }
         }
 
         @media (max-width: 480px) {
-            .hero { padding: 48px 20px 32px; }
+            .hero { padding: 48px 20px 0; }
             h1 { font-size: 32px; }
+            .subtitle { font-size: 13px; letter-spacing: 2px; }
+            .tagline { font-size: 15px; }
             .features { grid-template-columns: 1fr; }
             .feature-wide { grid-column: auto; }
             .icon { width: 96px; height: 96px; border-radius: 22px; }
+            .sections { padding: 0 20px; }
+            .bottom-area { padding: 0 20px 32px; }
+            .contact-card { padding: 28px 20px; }
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <img src="/icon.png" alt="LockedIn FIT" class="icon">
-        <h1>Locked<span>In</span> FIT</h1>
-        <p class="tagline">Train with Locke the wolf. Track workouts, fuel up with smart meal plans, batch prep like a pro, and recover smarter.</p>
+    <div class="bg-glow"></div>
 
-        <!-- Training -->
-        <div class="section-label">Training</div>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">&#x1F3CB;</div>
-                <div class="feature-title">Log Workouts</div>
-                <div class="feature-desc">Import any plan from CSV, Excel, or Google Sheets. Rest timers, PR tracking, and auto-loaded weights.</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">&#x1F525;</div>
-                <div class="feature-title">Earn XP &amp; Rank Up</div>
-                <div class="feature-desc">Progress from Runt to Apex across 7 ranks. Streaks, milestones, and session XP.</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">&#x1F4AA;</div>
-                <div class="feature-title">1RM Testing</div>
-                <div class="feature-desc">Test your one-rep max and track strength gains over time.</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">&#x2764;&#xFE0F;</div>
-                <div class="feature-title">Recovery Dashboard</div>
-                <div class="feature-desc">Readiness scores, muscle heatmap, fatigue forecasting, and smart deload triggers.</div>
+    <div class="page">
+        <!-- ── Hero ────────────────────────────────── -->
+        <div class="hero">
+            <img src="/icon.png" alt="LockedIn FIT" class="icon">
+            <h1>Locked<span>In</span> FIT</h1>
+            <p class="subtitle">Train Like a Wolf</p>
+            <p class="tagline">Track workouts, fuel up with smart meal plans, batch prep like a pro, and recover smarter — with Locke by your side.</p>
+
+            <div class="cta-area">
+                <a class="app-store-btn" href="https://apps.apple.com/app/lockedin-fit/id6742045498">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+                <span class="cta-note">Free on iOS &middot; No account required</span>
             </div>
         </div>
 
-        <!-- Nutrition -->
-        <div class="section-label">Nutrition</div>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">&#x1F372;</div>
-                <div class="feature-title">Fuel Plan</div>
-                <div class="feature-desc">Personalized weekly meal plans with daily menus, macro tracking, and nutrition streaks.</div>
+        <!-- ── Feature Sections ────────────────────── -->
+        <div class="sections">
+
+            <!-- Training -->
+            <div class="section section--training">
+                <div class="section-header">
+                    <div class="section-icon">&#x1F3CB;</div>
+                    <span class="section-label">Training</span>
+                    <div class="section-line"></div>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F4CB;</div>
+                        <div class="feature-title">Log Workouts</div>
+                        <div class="feature-desc">Import any plan from CSV, Excel, or Google Sheets. Rest timers, PR tracking, and auto-loaded weights.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F525;</div>
+                        <div class="feature-title">Earn XP &amp; Rank Up</div>
+                        <div class="feature-desc">Progress from Runt to Apex across 7 ranks. Streaks, milestones, and session XP.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F4AA;</div>
+                        <div class="feature-title">1RM Testing</div>
+                        <div class="feature-desc">Test your one-rep max and track strength gains over time.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x2764;&#xFE0F;</div>
+                        <div class="feature-title">Recovery Dashboard</div>
+                        <div class="feature-desc">Readiness scores, muscle heatmap, fatigue forecasting, and smart deload triggers.</div>
+                    </div>
+                </div>
             </div>
-            <div class="feature">
-                <div class="feature-icon">&#x1F52A;</div>
-                <div class="feature-title">Prep Day</div>
-                <div class="feature-desc">Batch cooking planner with shelf life tracking, expiry warnings, and marinate-ahead proteins.</div>
+
+            <!-- Nutrition -->
+            <div class="section section--nutrition">
+                <div class="section-header">
+                    <div class="section-icon">&#x1F957;</div>
+                    <span class="section-label">Nutrition</span>
+                    <div class="section-line"></div>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F372;</div>
+                        <div class="feature-title">Fuel Plan</div>
+                        <div class="feature-desc">Personalized weekly meal plans with daily menus, macro tracking, and nutrition streaks.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F52A;</div>
+                        <div class="feature-title">Prep Day</div>
+                        <div class="feature-desc">Batch cooking planner with shelf life tracking, expiry warnings, and marinate-ahead proteins.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F6D2;</div>
+                        <div class="feature-title">Grocery Lists</div>
+                        <div class="feature-desc">Auto-generated shopping lists from your weekly meal plan.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F4D6;</div>
+                        <div class="feature-title">Recipe Catalog</div>
+                        <div class="feature-desc">Three tiers — Scavenge, Hunt, and Apex Feast — with step-by-step instructions.</div>
+                    </div>
+                </div>
             </div>
-            <div class="feature">
-                <div class="feature-icon">&#x1F6D2;</div>
-                <div class="feature-title">Grocery Lists</div>
-                <div class="feature-desc">Auto-generated shopping lists from your weekly meal plan.</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">&#x1F4D6;</div>
-                <div class="feature-title">Recipe Catalog</div>
-                <div class="feature-desc">Three tiers of recipes — Scavenge, Hunt, and Apex Feast — with step-by-step instructions.</div>
+
+            <!-- Companion -->
+            <div class="section section--companion">
+                <div class="section-header">
+                    <div class="section-icon">&#x1F43A;</div>
+                    <span class="section-label">Your Companion</span>
+                    <div class="section-line"></div>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F43A;</div>
+                        <div class="feature-title">Meet Locke</div>
+                        <div class="feature-desc">Your wolf mascot reacts to your training, coaches your recovery, and celebrates your wins.</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">&#x1F3A8;</div>
+                        <div class="feature-title">Customize Locke</div>
+                        <div class="feature-desc">Unlock fur colors, eyes, accessories, and auras as you rank up.</div>
+                    </div>
+                    <div class="feature feature-wide">
+                        <div class="feature-icon">&#x1F4F1;</div>
+                        <div class="feature-title">Offline First &middot; Apple Health Sync</div>
+                        <div class="feature-desc">All data stays on your device. No account needed. Syncs with Apple Health for heart rate, HRV, sleep, and more.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Locke & More -->
-        <div class="section-label">Your Companion</div>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">&#x1F43A;</div>
-                <div class="feature-title">Meet Locke</div>
-                <div class="feature-desc">Your wolf mascot reacts to your training, coaches your recovery, and celebrates your wins.</div>
+        <!-- ── Bottom ──────────────────────────────── -->
+        <div class="bottom-area">
+            <div class="divider"></div>
+
+            <div class="contact-card">
+                <h2>Contact Us</h2>
+                <p>Questions, feedback, or need help? We'd love to hear from you.</p>
+                <a class="contact-btn" href="mailto:fitlockedin@gmail.com">&#x2709;&#xFE0F; Email Us</a>
             </div>
-            <div class="feature">
-                <div class="feature-icon">&#x1F3A8;</div>
-                <div class="feature-title">Customize Locke</div>
-                <div class="feature-desc">Unlock fur colors, eyes, accessories, and auras as you rank up.</div>
-            </div>
-            <div class="feature feature-wide">
-                <div class="feature-icon">&#x1F4F1;</div>
-                <div class="feature-title">Offline First &middot; Apple Health Sync</div>
-                <div class="feature-desc">All data stays on your device. No account needed. Syncs with Apple Health for heart rate, HRV, sleep, and more.</div>
+
+            <div class="links">
+                <a href="/privacy-policy.html">Privacy Policy</a>
+                <a href="/terms-of-service.html">Terms of Service</a>
             </div>
         </div>
 
-        <a class="app-store-btn" href="https://apps.apple.com/app/lockedin-fit/id6742045498">
-            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
-        </a>
-
-        <div class="divider"></div>
-
-        <div class="contact-card">
-            <h2>Contact Us</h2>
-            <p>Questions, feedback, or need help? We'd love to hear from you.</p>
-            <a class="contact-btn" href="mailto:fitlockedin@gmail.com">&#x2709;&#xFE0F; Email Us</a>
+        <div class="footer">
+            &copy; 2026 LockedIn FIT &middot; <a href="mailto:fitlockedin@gmail.com">fitlockedin@gmail.com</a>
         </div>
-
-        <div class="links">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/terms-of-service.html">Terms of Service</a>
-        </div>
-    </div>
-
-    <div class="footer">
-        &copy; 2026 LockedIn FIT &middot; <a href="mailto:fitlockedin@gmail.com">fitlockedin@gmail.com</a>
     </div>
 </body>
 </html>
