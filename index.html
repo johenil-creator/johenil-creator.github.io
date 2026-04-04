@@ -24,7 +24,7 @@
             justify-content: center;
             padding: 80px 24px 48px;
             text-align: center;
-            max-width: 600px;
+            max-width: 640px;
         }
 
         .icon {
@@ -49,8 +49,18 @@
         .tagline {
             font-size: 18px;
             color: #B0B8C1;
-            margin-bottom: 40px;
-            line-height: 1.5;
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        /* Section headers */
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00875A;
+            margin-bottom: 16px;
         }
 
         .features {
@@ -84,6 +94,12 @@
             font-size: 12px;
             color: #7D8590;
             margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        /* Full-width feature card */
+        .feature-wide {
+            grid-column: 1 / -1;
         }
 
         .app-store-btn {
@@ -180,6 +196,7 @@
             .hero { padding: 48px 20px 32px; }
             h1 { font-size: 32px; }
             .features { grid-template-columns: 1fr; }
+            .feature-wide { grid-column: auto; }
             .icon { width: 96px; height: 96px; border-radius: 22px; }
         }
     </style>
@@ -188,28 +205,75 @@
     <div class="hero">
         <img src="/icon.png" alt="LockedIn FIT" class="icon">
         <h1>Locked<span>In</span> FIT</h1>
-        <p class="tagline">Gamified fitness tracking with Locke, your wolf companion. Earn XP, rank up, and stay locked in.</p>
+        <p class="tagline">Train with Locke the wolf. Track workouts, fuel up with smart meal plans, batch prep like a pro, and recover smarter.</p>
 
+        <!-- Training -->
+        <div class="section-label">Training</div>
         <div class="features">
             <div class="feature">
                 <div class="feature-icon">&#x1F3CB;</div>
                 <div class="feature-title">Log Workouts</div>
-                <div class="feature-desc">Import any plan from CSV, Excel, or Google Sheets</div>
+                <div class="feature-desc">Import any plan from CSV, Excel, or Google Sheets. Rest timers, PR tracking, and auto-loaded weights.</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">&#x1F525;</div>
                 <div class="feature-title">Earn XP &amp; Rank Up</div>
-                <div class="feature-desc">Progress from Runt to Apex across 7 ranks</div>
+                <div class="feature-desc">Progress from Runt to Apex across 7 ranks. Streaks, milestones, and session XP.</div>
             </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F4AA;</div>
+                <div class="feature-title">1RM Testing</div>
+                <div class="feature-desc">Test your one-rep max and track strength gains over time.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x2764;&#xFE0F;</div>
+                <div class="feature-title">Recovery Dashboard</div>
+                <div class="feature-desc">Readiness scores, muscle heatmap, fatigue forecasting, and smart deload triggers.</div>
+            </div>
+        </div>
+
+        <!-- Nutrition -->
+        <div class="section-label">Nutrition</div>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">&#x1F372;</div>
+                <div class="feature-title">Fuel Plan</div>
+                <div class="feature-desc">Personalized weekly meal plans with daily menus, macro tracking, and nutrition streaks.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F52A;</div>
+                <div class="feature-title">Prep Day</div>
+                <div class="feature-desc">Batch cooking planner with shelf life tracking, expiry warnings, and marinate-ahead proteins.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F6D2;</div>
+                <div class="feature-title">Grocery Lists</div>
+                <div class="feature-desc">Auto-generated shopping lists from your weekly meal plan.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#x1F4D6;</div>
+                <div class="feature-title">Recipe Catalog</div>
+                <div class="feature-desc">Three tiers of recipes — Scavenge, Hunt, and Apex Feast — with step-by-step instructions.</div>
+            </div>
+        </div>
+
+        <!-- Locke & More -->
+        <div class="section-label">Your Companion</div>
+        <div class="features">
             <div class="feature">
                 <div class="feature-icon">&#x1F43A;</div>
                 <div class="feature-title">Meet Locke</div>
-                <div class="feature-desc">Your wolf mascot reacts to your training</div>
+                <div class="feature-desc">Your wolf mascot reacts to your training, coaches your recovery, and celebrates your wins.</div>
             </div>
             <div class="feature">
+                <div class="feature-icon">&#x1F3A8;</div>
+                <div class="feature-title">Customize Locke</div>
+                <div class="feature-desc">Unlock fur colors, eyes, accessories, and auras as you rank up.</div>
+            </div>
+            <div class="feature feature-wide">
                 <div class="feature-icon">&#x1F4F1;</div>
-                <div class="feature-title">Offline First</div>
-                <div class="feature-desc">All data on your device. No account needed.</div>
+                <div class="feature-title">Offline First &middot; Apple Health Sync</div>
+                <div class="feature-desc">All data stays on your device. No account needed. Syncs with Apple Health for heart rate, HRV, sleep, and more.</div>
             </div>
         </div>
 
